@@ -19,8 +19,11 @@ h1 {
 .calculator-output {
     font-size: 40px;
     font-weight: 600;
+    height: 50px;
     width: 300px;
     padding: 10px 15px;
+    display: flex;
+    align-items: center;
     flex-grow: 1;
     flex-basis: auto;
     background-color: #e0e0e0;
