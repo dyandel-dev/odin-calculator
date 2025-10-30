@@ -5,6 +5,7 @@ let arithmetic_operation = "";
 
 const calculator_output = document.querySelector(".calculator-output");
 const calculator_btns = document.querySelectorAll(".calculator-btn");
+const equals_btn = document.querySelector(".equals-btn");
 
 function addNumber(first_num, second_num) {
   return first_num + second_num;
@@ -42,9 +43,13 @@ function operate(first_num, math_operation, second_num) {
 }
 
 function evaluateOperation(input) {
-  if (input === ("+" || "-" || "*" || "/")) {
-    math_operation = input;
+  const valid_operations = ["+", "-", "*", "/"];
+
+  if (valid_operations.includes(input)) {
+    return (math_operation = input);
   }
+
+  return null;
 }
 
 calculator_btns.forEach((btn) => {
@@ -60,7 +65,7 @@ calculator_btns.forEach((btn) => {
 });
 
 function getNumberBeforeSymbol(arithmetic_operation) {
-  let symbol = "[-*/]";
+  let symbol = "[+*/-]";
 
   let endIndex = arithmetic_operation.search(symbol);
 
@@ -70,7 +75,7 @@ function getNumberBeforeSymbol(arithmetic_operation) {
 }
 
 function getNumberAfterSymbol(arithmetic_operation) {
-  let symbol = "[-*/]";
+  let symbol = "[+*/-]";
 
   let startIndex = arithmetic_operation.search(symbol);
 
@@ -78,3 +83,14 @@ function getNumberAfterSymbol(arithmetic_operation) {
 
   return parseFloat(numberAfter);
 }
+
+equals_btn.addEventListener("click", (event) => {
+  first_num = getNumberBeforeSymbol(arithmetic_operation);
+  second_num = getNumberAfterSymbol(arithmetic_operation);
+
+  let result = operate(first_num, math_operation, second_num);
+
+  arithmetic_operation = result;
+
+  calculator_output.textContent = arithmetic_operation;
+});
