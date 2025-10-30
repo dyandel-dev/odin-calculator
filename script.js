@@ -6,6 +6,7 @@ let arithmetic_operation = "";
 const calculator_output = document.querySelector(".calculator-output");
 const calculator_btns = document.querySelectorAll(".calculator-btn");
 const equals_btn = document.querySelector(".equals-btn");
+const clear_btn = document.querySelector(".clear-btn");
 
 function addNumber(first_num, second_num) {
   return first_num + second_num;
@@ -93,4 +94,9 @@ equals_btn.addEventListener("click", (event) => {
   arithmetic_operation = result;
 
   calculator_output.textContent = arithmetic_operation;
+});
+
+clear_btn.addEventListener("click", (event) => {
+  arithmetic_operation = "";
+  calculator_output.textContent = "";
 });
