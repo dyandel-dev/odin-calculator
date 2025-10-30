@@ -1,7 +1,7 @@
 let first_num;
 let second_num;
 let math_operation;
-let user_input = "";
+let arithmetic_operation = "";
 
 const calculator_output = document.querySelector(".calculator-output");
 const calculator_btns = document.querySelectorAll(".calculator-btn");
@@ -41,10 +41,40 @@ function operate(first_num, math_operation, second_num) {
   }
 }
 
+function evaluateOperation(input) {
+  if (input === ("+" || "-" || "*" || "/")) {
+    math_operation = input;
+  }
+}
+
 calculator_btns.forEach((btn) => {
   btn.addEventListener("click", (event) => {
-    user_input += String(event.target.textContent);
+    const current_value = event.target.textContent;
 
-    calculator_output.textContent = user_input;
+    evaluateOperation(String(current_value));
+
+    arithmetic_operation += String(current_value);
+
+    calculator_output.textContent = arithmetic_operation;
   });
 });
+
+function getNumberBeforeSymbol(arithmetic_operation) {
+  let symbol = "[-*/]";
+
+  let endIndex = arithmetic_operation.search(symbol);
+
+  let numberBefore = arithmetic_operation.slice(0, endIndex);
+
+  return parseFloat(numberBefore);
+}
+
+function getNumberAfterSymbol(arithmetic_operation) {
+  let symbol = "[-*/]";
+
+  let startIndex = arithmetic_operation.search(symbol);
+
+  let numberAfter = arithmetic_operation.slice(startIndex + 1);
+
+  return parseFloat(numberAfter);
+}
