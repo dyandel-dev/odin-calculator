@@ -1,6 +1,6 @@
-let first_num;
+let first_num = undefined;
 let second_num;
-let math_operation;
+let arithmetic_symbol = "";
 let arithmetic_operation = "";
 
 const calculator_output = document.querySelector(".calculator-output");
@@ -24,8 +24,8 @@ function divideNumber(first_num, second_num) {
   return first_num / second_num;
 }
 
-function operate(first_num, math_operation, second_num) {
-  switch (math_operation) {
+function operate(first_num, arithmetic_symbol, second_num) {
+  switch (arithmetic_symbol) {
     case "+":
       return addNumber(first_num, second_num);
       break;
@@ -47,7 +47,17 @@ function evaluateOperation(input) {
   const valid_operations = ["+", "-", "*", "/"];
 
   if (valid_operations.includes(input)) {
-    return (math_operation = input);
+    if (arithmetic_symbol) {
+      let result = equalsBtn(arithmetic_operation, arithmetic_symbol);
+
+      arithmetic_symbol = input;
+      arithmetic_operation = "";
+      arithmetic_operation += String(result);
+
+      return arithmetic_symbol;
+    }
+
+    return (arithmetic_symbol = input);
   }
 
   return null;
@@ -85,15 +95,21 @@ function getNumberAfterSymbol(arithmetic_operation) {
   return parseFloat(numberAfter);
 }
 
-equals_btn.addEventListener("click", (event) => {
+function equalsBtn(arithmetic_operation, arithmetic_symbol) {
   first_num = getNumberBeforeSymbol(arithmetic_operation);
   second_num = getNumberAfterSymbol(arithmetic_operation);
 
-  let result = operate(first_num, math_operation, second_num);
+  let result = operate(first_num, arithmetic_symbol, second_num);
 
   arithmetic_operation = result;
 
   calculator_output.textContent = arithmetic_operation;
+
+  return result;
+}
+
+equals_btn.addEventListener("click", (event) => {
+  equalsBtn(arithmetic_operation, arithmetic_symbol);
 });
 
 clear_btn.addEventListener("click", (event) => {
