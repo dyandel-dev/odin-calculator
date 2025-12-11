@@ -1,4 +1,4 @@
-let first_num = undefined;
+let first_num;
 let second_num;
 let arithmetic_symbol = "";
 let arithmetic_operation = "";
@@ -21,6 +21,13 @@ function multiplyNumber(first_num, second_num) {
 }
 
 function divideNumber(first_num, second_num) {
+  if (second_num === 0) {
+    alert("You cannot divide with 0!");
+    calculator_output.textContent = "";
+    arithmetic_symbol = "";
+    return (arithmetic_operation = "");
+  }
+
   return first_num / second_num;
 }
 
@@ -101,7 +108,7 @@ function equalsBtn(arithmetic_operation, arithmetic_symbol) {
 
   let result = operate(first_num, arithmetic_symbol, second_num);
 
-  arithmetic_operation = result;
+  arithmetic_operation = Number(result.toFixed(2));
 
   calculator_output.textContent = arithmetic_operation;
 
